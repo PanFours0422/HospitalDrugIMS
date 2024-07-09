@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * DatabaseUtil 类是一个用于管理数据库连接的工具类。
  */
 public class DatabaseUtil {
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=HDMIS";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=HDIMS";
     private static final String USER = "sa";
     private static final String PASSWORD = "123wspsg";
 
