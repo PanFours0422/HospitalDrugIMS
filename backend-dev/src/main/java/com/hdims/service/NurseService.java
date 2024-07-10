@@ -60,4 +60,14 @@ public class NurseService {
     public boolean handlePrescription(int pno, String nno) {
         return prescriptionDomain.handlePrescription(pno, nno);
     }
+
+    /**
+     * 检查处方是否可处理（库存是否足够）
+     *
+     * @param pno 处方编号
+     * @return 可处理返回 true，否则返回 false
+     */
+    public boolean isPrescriptionProcessable(int pno) {
+        return prescriptionDomain.isPrescriptionProcessable(pno);
+    }
 }
