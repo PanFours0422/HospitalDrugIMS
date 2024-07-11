@@ -256,4 +256,37 @@ public class PrescriptionDomain {
             return false;
         }
     }
+
+    /**
+     * 检查处方是否可处理（库存是否足够）
+     *
+     * @param pno 处方编号
+     * @return 可处理返回 true，否则返回 false
+     */
+    public boolean isPrescriptionProcessable(int pno) {
+        String sql = "SELECT pid.PDno, pid.PDnum, COALESCE(SUM(inv.PDnum), 0) AS available " +
+                "FROM PID pid " +
+                "LEFT JOIN InventoryDrug inv ON pid.PDno = inv.PDno " +
+                "WHERE pid.Pno = ? " +
+                "GROUP BY pid.PDno, pid.PDnum";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, pno);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int required = rs.getInt("PDnum");
+                    int available = rs.getInt("available");
+                    if (required > available) {
+                        return false; // 库存不足，无法处理
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

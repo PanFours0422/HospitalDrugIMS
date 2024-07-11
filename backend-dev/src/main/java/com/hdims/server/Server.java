@@ -15,7 +15,7 @@ public class Server {
                 // 接受客户端连接
                 Socket clientSocket = serverSocket.accept();
                 // 提示客户端成功连接
-                System.out.println("客户端已登录: " + clientSocket.getInetAddress().getHostAddress());
+                System.out.println("客户端已连接: " + clientSocket.getInetAddress().getHostAddress());
                 // 为每个客户端连接创建一个新的处理线程
                 new ClientHandler(clientSocket).start();
             }

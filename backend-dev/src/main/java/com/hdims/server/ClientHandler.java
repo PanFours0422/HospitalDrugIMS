@@ -113,10 +113,10 @@ public class ClientHandler extends Thread {
         Response response = new Response();
         if (success) {
             response.setStatus("success");
-            response.setMessage("Login successful");
+            response.setMessage("登录成功！");
         } else {
             response.setStatus("error");
-            response.setMessage("Invalid credentials");
+            response.setMessage("账号或密码错误！");
         }
         return response;
     }
