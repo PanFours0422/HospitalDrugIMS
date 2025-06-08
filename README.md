@@ -2,23 +2,31 @@
 
 ## 📌 项目简介
 
-本项目是一个基于前后端分离的医院药品管理系统。前端采用现代Web技术构建，后端提供API服务，旨在实现药品的入库、出库、查询、库存管理等功能，提高医院药房的运营效率。
+本项目是一个基于 Java Swing 的医院药品管理系统桌面应用程序。系统采用客户端-服务器架构，客户端使用 Java Swing 构建图形界面，后端提供数据服务，旨在实现药品的入库、出库、查询、库存管理等功能，提高医院药房的运营效率。
 
 ## ⚙️ 技术栈
 
-### 前端 (frontend-dev)
+### 客户端 (frontend-dev)
 
--   **框架**: React
--   **状态管理**: Redux (或者其他您使用的状态管理库，待确认)
--   **UI组件库**: Ant Design (或者其他您使用的UI库，待确认)
--   **包管理器**: npm / yarn
+-   **语言**: Java 22
+-   **GUI框架**: Java Swing
+-   **构建工具**: Maven
+-   **主要功能模块**:
+    - 登录界面 (LoginFrame)
+    - 管理员界面 (AdminFrame)
+    - 医生界面 (DoctorFrame)
+    - 护士界面 (NurseFrame)
 
 ### 后端 (backend-dev)
 
--   **框架**: Spring Boot (或者其他您使用的后端框架，待确认)
--   **语言**: Java (或者其他您使用的后端语言，待确认)
--   **数据库**: MySQL (或者其他您使用的数据库，待确认)
--   **构建工具**: Maven / Gradle
+-   **语言**: Java 22
+-   **构建工具**: Maven
+-   **数据库**: Microsoft SQL Server
+-   **主要依赖**:
+    - Gson 2.8.6 (JSON处理)
+    - SQL Server JDBC Driver 9.4.1
+    - JUnit 4.13.2 & JUnit Jupiter 5.7.1 (单元测试)
+    - Mockito 3.6.0 (测试模拟)
 
 ## 🚀 快速开始
 
@@ -37,43 +45,39 @@ cd HospitalDrugIMS
 cd backend-dev
 ```
 
-根据您后端项目的具体技术栈，执行以下步骤：
+#### 环境要求
+- JDK 22
+- Maven 3.x
+- Microsoft SQL Server
 
--   **Spring Boot (Maven)**:
-    1.  确保您已安装 Java 开发工具包 (JDK) 和 Maven。
-    2.  配置 `application.properties` 或 `application.yml` 文件中的数据库连接信息。
-    3.  运行：
-        ```bash
-        mvn spring-boot:run
-        ```
--   **(其他后端框架)**: 请在此处补充您后端项目的具体运行指令和依赖安装说明。
+#### 配置步骤
+1. 确保已安装 JDK 22 和 Maven
+2. 配置数据库连接（具体配置方式待补充）
+3. 运行项目：
+   ```bash
+   mvn clean install
+   mvn exec:java
+   ```
 
-### 3. 前端设置与运行
+### 3. 客户端设置与运行
 
-在一个新的终端窗口中，进入前端项目目录：
+进入客户端项目目录：
 
 ```bash
 cd frontend-dev
 ```
 
-根据您前端项目的具体技术栈，执行以下步骤：
+#### 环境要求
+- JDK 22
+- Maven 3.x
 
--   **React (npm/yarn)**:
-    1.  安装依赖：
-        ```bash
-        npm install
-        # 或者
-        yarn install
-        ```
-    2.  启动开发服务器：
-        ```bash
-        npm start
-        # 或者
-        yarn start
-        ```
-    这将通常在 `http://localhost:3000` 启动前端应用。
-
--   **(其他前端框架)**: 请在此处补充您前端项目的具体运行指令和依赖安装说明。
+#### 配置步骤
+1. 确保已安装 JDK 22 和 Maven
+2. 运行项目：
+   ```bash
+   mvn clean install
+   mvn exec:java -Dexec.mainClass="com.hdims.client.LoginFrame"
+   ```
 
 ## 📂 项目结构
 
@@ -81,21 +85,39 @@ cd frontend-dev
 HospitalDrugIMS/
 ├── backend-dev/             # 后端项目代码
 │   ├── src/
-│   └── pom.xml (或 build.gradle)
-├── frontend-dev/            # 前端项目代码
-│   ├── public/
+│   │   ├── main/           # 主要源代码
+│   │   └── test/           # 测试代码
+│   └── pom.xml             # Maven 配置文件
+├── frontend-dev/            # 客户端项目代码
 │   ├── src/
-│   └── package.json
+│   │   └── main/
+│   │       └── java/
+│   │           └── com/
+│   │               └── hdims/
+│   │                   └── client/    # 客户端源代码
+│   │                       ├── LoginFrame.java    # 登录界面
+│   │                       ├── AdminFrame.java    # 管理员界面
+│   │                       ├── DoctorFrame.java   # 医生界面
+│   │                       ├── NurseFrame.java    # 护士界面
+│   │                       ├── Client.java        # 客户端主类
+│   │                       └── UserSession.java   # 用户会话管理
+│   └── pom.xml             # Maven 配置文件
 └── README.md                # 项目说明
 ```
 
-## ✨ 功能特性 (待完善)
+## ✨ 功能特性
 
--   用户登录与权限管理
--   药品信息管理（增、删、改、查）
--   药品入库与出库管理
--   库存预警与统计报表
--   供应商与客户管理
+### 用户角色
+- 管理员：系统管理、用户管理、药品管理
+- 医生：药品查询、处方开具
+- 护士：药品领取、库存查询
+
+### 核心功能
+- 用户登录与权限管理
+- 药品信息管理（增、删、改、查）
+- 药品入库与出库管理
+- 库存预警与统计报表
+- 供应商与客户管理
 
 ## 🤝 贡献 (待完善)
 
